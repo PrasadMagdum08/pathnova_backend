@@ -97,7 +97,7 @@ class LoginView(APIView):
         
 
 class ProfileView(APIView):
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         user_id = request.query_params.get('_id')
