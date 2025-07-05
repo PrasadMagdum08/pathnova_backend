@@ -1,0 +1,10 @@
+django
+djangorestframework
+pymongo
+django-cors-headers
+python-dotenv
+nltk
+PyPDF2 
+python-docx 
+docx2txt
+bcrypt
