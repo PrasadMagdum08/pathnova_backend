@@ -3,6 +3,8 @@ from rest_framework import serializers
 
 class StudentProfileSerializer(serializers.Serializer):
     user_id = serializers.CharField()
+    username = serializers.CharField()
+    email = serializers.EmailField()
     college = serializers.CharField()
     semester = serializers.CharField()
     current_major = serializers.CharField()
