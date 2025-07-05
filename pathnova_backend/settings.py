@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-33!@qmo1#0e9@f-3!9rj1su)vp7g#*q5955_^3q!q$mw68noaq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['pathnova-backend.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
