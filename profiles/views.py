@@ -7,7 +7,7 @@ from bson import ObjectId
 
 
 class StudentProfileView(APIView):
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_user_id(self, request):
         if 'user_id' in request.query_params:
