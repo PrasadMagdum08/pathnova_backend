@@ -13,6 +13,12 @@ const profileSchema = new mongoose.Schema({
   upskilling: [String],
   portfolio_url: [String],
   portfolio_building_duration: Number,
+
+  // ✅ New field for profile image
+  profileImageUrl: {
+    type: String,
+    default: 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Profile', profileSchema);
