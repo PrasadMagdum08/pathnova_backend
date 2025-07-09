@@ -4,7 +4,7 @@ const { createOrUpdateProfile, getProfile, updateProfileImage } = require('../co
 const authenticate = require('../middlewares/authMiddleware');
 
 router.post('/', authenticate, createOrUpdateProfile);
-router.get('/', authenticate, getProfile);
+router.get('/fetch_profile', authenticate, getProfile);
 router.patch('/image', authenticate, updateProfileImage);
 
 module.exports = router;
