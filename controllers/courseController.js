@@ -6,7 +6,7 @@ exports.course = async (req, res) => {
     const token = req.token;
 
     try {
-        const response = await axios.get('http://127.0.0.1:8000/api/courses/recommendations/', {
+        const response = await axios.get('https://pathnova-backend.onrender.com/api/courses/recommendations/', {
         headers: {
             Authorization: `Bearer ${token}`
         }
