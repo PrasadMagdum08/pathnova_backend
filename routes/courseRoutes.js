@@ -1,9 +1,9 @@
-const express = require('express');
+// routes/courseRoutes.js
+const express = require("express");
 const router = express.Router();
-const authenticate = require('../middlewares/authMiddleware');
-const {course} = require('../controllers/courseController');
+const courseController = require("../controllers/courseController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
+router.get("/recommendations", authMiddleware, courseController.course);
 
-router.get('/recommendations', authenticate, course);
-  
 module.exports = router;
