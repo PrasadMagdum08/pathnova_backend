@@ -2,12 +2,20 @@
 const axios = require("axios");
 
 exports.course = async (req, res) => {
-  const idToken = req.token; // ✅ fixed
-
   try {
+    // ✅ Extract token from incoming request headers
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ error: "Authorization token missing" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    // 🔁 Forward the token to Django recommendation API
     const response = await axios.get("https://pathnova-backend.onrender.com/api/courses/recommendations/", {
       headers: {
-        Authorization: `Bearer ${idToken}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
