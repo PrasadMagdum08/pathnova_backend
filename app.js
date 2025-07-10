@@ -14,7 +14,7 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/profile', require('./routes/profileRoutes'));
-app.use('/api/courses', require('./routes/courses'));
+app.use('/api/courses', require('./routes/courseRoutes'));
 
 
 module.exports = app;
