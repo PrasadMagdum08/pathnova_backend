@@ -2,13 +2,12 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-
 exports.register = async (req, res) => {
   const { name, email, password, role } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      print("User already exists with email:", existingUser);
+      console.log("User already exists with email:", existingUser); // ✅ fixed
       return res.status(400).json({ message: 'User already exists' });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -17,16 +16,17 @@ exports.register = async (req, res) => {
     const token = jwt.sign({ 
       id: user._id, 
       role: user.role,
-      email: user.email, 
+      email: user.email               // ✅ now included for Django JWT parsing
     }, 
     process.env.JWT_SECRET, { 
       expiresIn: '7d' 
     });
-    print("User registered successfully:", user);
-    print("Generated token:", token);
+
+    console.log("User registered successfully:", user);     // ✅ fixed
+    console.log("Generated token:", token);                 // ✅ fixed
     res.status(201).json({ token, user });
   } catch (err) {
-    print("Error during registration:", err);
+    console.log("Error during registration:", err);         // ✅ fixed
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -40,9 +40,15 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ 
+      id: user._id, 
+      role: user.role,
+      email: user.email               // ✅ include here as well
+    }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
     res.status(200).json({ token, user });
   } catch (err) {
+    console.log("Error during login:", err);               // ✅ fixed
     res.status(500).json({ message: 'Server error' });
   }
 };
