@@ -1,14 +1,14 @@
 // routes/courses.js
 const axios = require('axios');
-
+const {token_fetch} = require('../controllers/authController');
 
 exports.course = async (req, res) => {
-    const token = req.token;
+    const idToken = token_fetch.token;
 
     try {
         const response = await axios.get('https://pathnova-backend.onrender.com/api/courses/recommendations/', {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${idToken}`
         }
         });
 
