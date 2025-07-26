@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const Admin = require('../models/Admin');
 const Student = require('../models/Student');
 const Task = require('../models/Task');
@@ -68,9 +69,6 @@ exports.getStudents = async (req, res) => {
   res.json(students);
 };
 
-// Assign task
-const Task = require('../models/Task'); // Ensure model is properly imported
-const { validationResult } = require('express-validator'); // Optional if using validators
 
 exports.assignTask = async (req, res) => {
   try {
