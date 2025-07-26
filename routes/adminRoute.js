@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router();
 const {
-    createOrUpdateProfile,
+    createOrUpdateAdminProfile,
     getProfile,
     getStudents,
     assignTask,
@@ -11,7 +11,7 @@ const {
 } = require('../controllers/adminController')
 const authenticate = require('../middlewares/authMiddleware');
 
-router.post('/', authenticate, createOrUpdateProfile);
+router.post('/', authenticate, createOrUpdateAdminProfile);
 router.get('/profie', authenticate, getProfile);
 router.get('/students', authenticate, getStudents);
 router.post('/task', authenticate, assignTask);
