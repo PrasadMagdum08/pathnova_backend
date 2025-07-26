@@ -21,6 +21,7 @@ exports.createOrUpdateAdminProfile = async (req, res) => {
       { userId }, // Search by userId from JWT
       {
         $set: {
+          userId,
           name,
           email,
           whatsapp_contact
