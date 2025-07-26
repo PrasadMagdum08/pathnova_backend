@@ -45,7 +45,7 @@ exports.createOrUpdateAdminProfile = async (req, res) => {
 };
 
 exports.getProfile = async (req, res) => {
-  const userId = req.user?.id;
+  const userId = req.user.id;
 
   try {
     const admin = await Admin.findOne({ userId });

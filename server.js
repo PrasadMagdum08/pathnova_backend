@@ -14,5 +14,5 @@ dotenv.config();
 // .. server running
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-    console.log(`Server running on `);
+    console.log(`Server running on https://pathnova-backend-1.onrender.com`);
 });
