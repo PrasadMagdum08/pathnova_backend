@@ -4,7 +4,7 @@ const Task = require('../models/Task');
 const Announcement = require('../models/Announcement');
 
 // // Register Admin
-xports.createOrUpdateAdminProfile = async (req, res) => {
+exports.createOrUpdateAdminProfile = async (req, res) => {
   const { name, email, whatsapp_contact } = req.body;
   const userId = req.user?.id;
 
