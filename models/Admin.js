@@ -5,7 +5,7 @@ const AdminSchema = new mongoose.Schema({
     userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', unique: true},
     name: String,
     email: String,
-    whatsapp: Number,
+    whatsapp_contact: Number,
 }, {timestamps: true});
 
 module.exports = mongoose.model('Admin', AdminSchema);
