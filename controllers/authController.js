@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
-    const {name, email, password, role} = req.body;
+    const {name, email, password, whatsapp_contact, role} = req.body;
     try{
         const existingUser = await User.findOne({email});
         if(existingUser){
@@ -12,12 +12,12 @@ exports.register = async (req, res) => {
             return res.status(400).json({message: 'User already exits'});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ name, email, password: hashedPassword, role });
+        const user = await User.create({ name, email, password: hashedPassword, whatsapp_contact, role });
 
         const token = jwt.sign({
             id: user._id,
             role: user.role,
-            email: user.email
+            email: user.email,
         },
         process.env.JWT_SECRET, {
             expiresIn: '7d'
