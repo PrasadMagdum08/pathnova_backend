@@ -1,5 +1,5 @@
 // pathnova_backend/controllers/profileController.js
-const Profile = require('../models/Student');
+const Student = require('../models/Student');
 
 // Create or update the user's full profile
 exports.createOrUpdateProfile = async (req, res) => {
@@ -21,11 +21,11 @@ exports.createOrUpdateProfile = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const existingProfile = await Profile.findOne({ userId });
+    const existingProfile = await Student.findOne({ userId });
 
     const defaultImage = 'https://cdn-icons-png.flaticon.com/512/149/149071.png'; // fallback image
 
-    const updatedProfile = await Profile.findOneAndUpdate(
+    const updatedProfile = await Student.findOneAndUpdate(
       { userId },
       {
         name,
@@ -56,7 +56,7 @@ exports.getProfile = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const profile = await Profile.findOne({ userId });
+    const profile = await Student.findOne({ userId });
     if (!profile) return res.status(404).json({ message: 'Profile not found' });
     res.status(200).json(profile);
   } catch (err) {
@@ -75,7 +75,7 @@ exports.updateProfileImage = async (req, res) => {
   }
 
   try {
-    const updated = await Profile.findOneAndUpdate(
+    const updated = await Student.findOneAndUpdate(
       { userId },
       { profileImageUrl },
       { new: true }

@@ -18,6 +18,6 @@ router.get('/profie', authenticate, getProfile);
 router.get('/students', authenticate, getStudents);
 router.post('/task', authenticate, assignTask);
 router.get('/announcement', authenticate, createAnnouncement);
-router.get('/announcements', authenticate, getAnnouncements);
+router.get('/announcements', authenticate, getAnnouncements); 
 
 module.exports = router;

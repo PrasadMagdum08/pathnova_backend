@@ -8,4 +8,4 @@ router.post('/', authenticate, createOrUpdateProfile);
 router.get('/fetch_profile', authenticate, getProfile);
 router.patch('/image', authenticate, updateProfileImage);
 
-module.exports = router;
+module.exports = router; 

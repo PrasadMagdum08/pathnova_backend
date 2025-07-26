@@ -1,46 +1,40 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const Student = require('../models/Student');
 const Task = require('../models/Task');
 const Announcement = require('../models/Announcement');
 
 // // Register Admin
-// exports.register = async (req, res) => {
-//   const { name, email, password } = req.body;
-//   try {
-//     const hashed = await bcrypt.hash(password, 10);
-//     const admin = await Admin.create({ name, email, password: hashed });
-//     res.status(201).json({ message: 'Admin registered', admin });
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// };
+exports.createOrUpdateProfile = async (req, res) => {
+  const { name, email, password, whatsapp_contact } = req.body;
 
-// // Login Admin
-// exports.login = async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const admin = await Admin.findOne({ email });
-//     if (!admin) return res.status(404).json({ message: 'Admin not found' });
+  const userId = req.user.id;
 
-//     const valid = await bcrypt.compare(password, admin.password);
-//     if (!valid) return res.status(403).json({ message: 'Invalid password' });
-
-//     const token = jwt.sign({ id: admin._id, email: admin.email }, process.env.JWT_SECRET);
-//     res.json({ token, admin });
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// };
-
-// Get admin profile
-exports.getProfile = async (req, res) => {
   try {
-    const admin = await Admin.findById(req.admin.id).select('-password');
-    res.json(admin);
+    const existingProfile = await Admin.findOne({ userId });
+    if(existingProfile) return res.status(200).json({message: 'User already exists'});
+
+    const updatedProfile = await Admin.findOneAndUpdate(
+      { userId},
+      { name, email, whatsapp_contact },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
+    res.status(200).json({message: `Admin register or udpated: ${updatedProfile}`});
+    // res.status(201).json({ message: 'Admin registered', admin });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
+  }
+};
+
+exports.getProfile = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const admin = await Admin.findOne({ userId });
+    if(!admin) return res.status(404).json({message: 'Profile not found'});
+    res.status(200).json(admin);
+  } catch (err) {
+    console.error(`Profile fetch error: ${err.message}`);
+    res.status(500).json({ message: 'Error fetching profile' });
   }
 };
 
