@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 
 const AdminSchema = new mongoose.Schema({
+    userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', unique: true},
     name: String,
     email: String,
     whatsapp: Number,
