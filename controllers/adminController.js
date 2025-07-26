@@ -57,18 +57,10 @@ exports.getProfile = async (req, res) => {
       console.log("Decoded userId from JWT:", req.user.id);
       return res.status(404).json({ message: 'Admin profile not found' });
     }
-
+    const admins = await Admin.find({});
     res.status(200).json({
       message: 'Admin profile fetched successfully',
-      admin: {
-        id: profile._id,
-        userId: profile.userId,
-        name: profile.name,
-        email: profile.email,
-        whatsapp_contact: profile.whatsapp_contact,
-        createdAt: profile.createdAt,
-        updatedAt: profile.updatedAt
-      }
+      admin: admins,
     });
   } catch (err) {
     console.error("Error fetching admin profile:", err.message);
