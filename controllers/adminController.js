@@ -48,16 +48,11 @@ exports.getProfile = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const admin = await Admin.findOne({ userId });
-    if(!admin) {
-      console.log(admin)
-      return res.status(404).json({message: `Profile not found`});
-    }
-    res.status(200).json({
-      message: 'Profile found',
-      profile: admin});
+    const profile = await Admin.findOne({ userId });
+    if (!profile) return res.status(404).json({ message: 'Profile not found' });
+    res.status(200).json(profile);
   } catch (err) {
-    console.error(`Profile fetch error: ${err.message}`);
+    console.error("Profile fetch error:", err.message);
     res.status(500).json({ message: 'Error fetching profile' });
   }
 };
