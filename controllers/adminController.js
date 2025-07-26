@@ -43,13 +43,13 @@ exports.getProfile = async (req, res) => {
   if (!userId) return res.status(401).json({ message: 'Unauthorized: Missing user ID' });
 
   try {
-    const profile = await Admin.findOne({ userId: userId });
+    // const profile = await Admin.findOne({ userId: userId });
+    const admins = await Admin.find({});
 
-    if (!profile) {
+    if (!admins) {
       console.log("Decoded userId from JWT:", req.user.id);
       return res.status(404).json({ message: 'Admin profile not found' });
     }
-    const admins = await Admin.find({});
     res.status(200).json({
       message: 'Admin profile fetched successfully',
       admin: admins,
