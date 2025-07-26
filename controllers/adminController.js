@@ -70,17 +70,14 @@ exports.getStudents = async (req, res) => {
 
 // Assign task
 exports.assignTask = async (req, res) => {
-  const { title, description, assignedToBatch } = req.body;
-
-  const userId = req.user?.id;
-  if (!userId) return res.status(401).json({ message: 'Unauthorized: Missing user ID' });
+  const { title, description, assignedToBatch, assignedToStudent } = req.body;
 
   try {
     const task = await Task.create({
       title,
       description,
       assignedToBatch,
-      assignedToStudent: req.Student?.id,
+      assignedToStudent,
       assignedBy: req.Admin?.id
     });
     res.status(201).json(task);
