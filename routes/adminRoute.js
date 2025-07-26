@@ -10,14 +10,14 @@ const {
     createAnnouncement,
     getAnnouncements
 } = require('../controllers/adminController')
-const {authenticateAdmin} = require('../middlewares/authMiddleware');
+const authenticate = require('../middlewares/authMiddleware');
 
 router.post('/register', register);
 router.post('login', login);
-router.get('/profie', authenticateAdmin, getProfile);
-router.get('/students', authenticateAdmin, getStudents);
-router.post('/task', authenticateAdmin, assignTask);
-router.get('/announcement', authenticateAdmin, createAnnouncement);
-router.get('/announcements', authenticateAdmin, getAnnouncement);
+router.get('/profie', authenticate, getProfile);
+router.get('/students', authenticate, getStudents);
+router.post('/task', authenticate, assignTask);
+router.get('/announcement', authenticate, createAnnouncement);
+router.get('/announcements', authenticate, getAnnouncements);
 
 module.exports = router;
