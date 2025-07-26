@@ -49,6 +49,7 @@ exports.login = async (req, res) => {
         process.env.JWT_SECRET, {
             expiresIn: '7d'
         });
+        res.status(200).json({token, user});
     }
     catch(error){
         console.log(`Error during login: ${error}`);
