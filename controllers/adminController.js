@@ -81,7 +81,7 @@ exports.assignTask = async (req, res) => {
       description,
       assignedToBatch,
       assignedToStudent,
-      assignedBy: userId
+      assignedBy: req.Admin._id
     });
     res.status(201).json(task);
   } catch (err) {
