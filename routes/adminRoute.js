@@ -12,7 +12,7 @@ const {
 const authenticate = require('../middlewares/authMiddleware');
 
 router.post('/', authenticate, createOrUpdateAdminProfile);
-router.get('/profie', authenticate, getProfile);
+router.get('/profile', authenticate, getProfile);
 router.get('/students', authenticate, getStudents);
 router.post('/task', authenticate, assignTask);
 router.get('/announcement', authenticate, createAnnouncement);
