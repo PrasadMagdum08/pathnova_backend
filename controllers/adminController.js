@@ -4,24 +4,43 @@ const Task = require('../models/Task');
 const Announcement = require('../models/Announcement');
 
 // // Register Admin
-exports.createOrUpdateProfile = async (req, res) => {
-  const { name, email, password, whatsapp_contact } = req.body;
+xports.createOrUpdateAdminProfile = async (req, res) => {
+  const { name, email, whatsapp_contact } = req.body;
+  const userId = req.user?.id;
 
-  const userId = req.user.id;
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized: Missing user ID from token' });
+  }
+
+  if (!name || !email || !whatsapp_contact) {
+    return res.status(400).json({ error: 'Name, email, and WhatsApp contact are required' });
+  }
 
   try {
-    // const existingProfile = await Admin.findOne({ userId });
-    // if(existingProfile) return res.status(200).json({message: 'User already exists'});
-
-    const updatedProfile = await Admin.findOneAndUpdate(
-      { userId},
-      { name, email, whatsapp_contact },
-      { new: true, upsert: true, setDefaultsOnInsert: true }
+    const updatedAdmin = await Admin.findOneAndUpdate(
+      { userId }, // Search by userId from JWT
+      {
+        $set: {
+          name,
+          email,
+          whatsapp_contact
+        }
+      },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true
+      }
     );
-    res.status(201).json({message: `Admin register or udpated: ${updatedProfile}`});
-    // res.status(201).json({ message: 'Admin registered', admin });
+
+    const isNew = updatedAdmin.wasNew; // Only available if you manually track it
+    res.status(201).json({
+      message: `Admin profile ${isNew ? 'created' : 'updated'} successfully`,
+      admin: updatedAdmin
+    });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error("Error in createOrUpdateAdminProfile:", err);
+    res.status(500).json({ error: 'Server error while updating/creating admin profile' });
   }
 };
 
