@@ -45,15 +45,30 @@ exports.createOrUpdateAdminProfile = async (req, res) => {
 };
 
 exports.getProfile = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user?.id;
+
+  if (!userId) return res.status(401).json({ message: 'Unauthorized: Missing user ID' });
 
   try {
-    const profile = await Admin.findOne({ userId });
-    if (!profile) return res.status(404).json({ message: 'Profile not found' });
-    res.status(200).json(profile);
+    const profile = await Admin.findOne({ userId: userId });
+
+    if (!profile) return res.status(404).json({ message: 'Admin profile not found' });
+
+    res.status(200).json({
+      message: 'Admin profile fetched successfully',
+      admin: {
+        id: profile._id,
+        userId: profile.userId,
+        name: profile.name,
+        email: profile.email,
+        whatsapp_contact: profile.whatsapp_contact,
+        createdAt: profile.createdAt,
+        updatedAt: profile.updatedAt
+      }
+    });
   } catch (err) {
-    console.error("Profile fetch error:", err.message);
-    res.status(500).json({ message: 'Error fetching profile' });
+    console.error("Error fetching admin profile:", err.message);
+    res.status(500).json({ message: 'Server error while fetching profile' });
   }
 };
 
