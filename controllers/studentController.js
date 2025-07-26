@@ -18,7 +18,7 @@ exports.createOrUpdateProfile = async (req, res) => {
     profileImageUrl // Optional in request body
   } = req.body;
 
-  const userId = req.user.id;
+  const userId = req.user?.id;
 
   try {
     const existingProfile = await Student.findOne({ userId });
