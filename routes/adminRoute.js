@@ -10,7 +10,7 @@ const {
     createAnnouncement,
     getAnnouncements
 } = require('../controllers/adminController')
-const {authenticateAdmin} = requier('../middlewares/authMiddleware');
+const {authenticateAdmin} = require('../middlewares/authMiddleware');
 
 router.post('/register', register);
 router.post('login', login);
