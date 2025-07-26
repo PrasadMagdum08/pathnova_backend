@@ -10,15 +10,15 @@ exports.createOrUpdateProfile = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const existingProfile = await Admin.findOne({ userId });
-    if(existingProfile) return res.status(200).json({message: 'User already exists'});
+    // const existingProfile = await Admin.findOne({ userId });
+    // if(existingProfile) return res.status(200).json({message: 'User already exists'});
 
     const updatedProfile = await Admin.findOneAndUpdate(
       { userId},
       { name, email, whatsapp_contact },
       { new: true, upsert: true, setDefaultsOnInsert: true }
     );
-    res.status(200).json({message: `Admin register or udpated: ${updatedProfile}`});
+    res.status(201).json({message: `Admin register or udpated: ${updatedProfile}`});
     // res.status(201).json({ message: 'Admin registered', admin });
   } catch (err) {
     res.status(400).json({ error: err.message });
