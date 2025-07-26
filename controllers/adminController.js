@@ -49,7 +49,10 @@ exports.getProfile = async (req, res) => {
 
   try {
     const admin = await Admin.findOne({ userId });
-    if(!admin) return res.status(404).json({message: `Profile not found`});
+    if(!admin) {
+      console.log(admin)
+      return res.status(404).json({message: `Profile not found`});
+    }
     res.status(200).json({
       message: 'Profile found',
       profile: admin});
