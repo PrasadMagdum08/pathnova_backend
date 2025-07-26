@@ -45,12 +45,14 @@ exports.createOrUpdateAdminProfile = async (req, res) => {
 };
 
 exports.getProfile = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user?.id;
 
   try {
     const admin = await Admin.findOne({ userId });
-    if(!admin) return res.status(404).json({message: `Profile not found: ${admin}`});
-    res.status(200).json(admin);
+    if(!admin) return res.status(404).json({message: `Profile not found`});
+    res.status(200).json({
+      message: 'Profile found',
+      profile: admin});
   } catch (err) {
     console.error(`Profile fetch error: ${err.message}`);
     res.status(500).json({ message: 'Error fetching profile' });
