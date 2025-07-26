@@ -14,7 +14,6 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/authRoute'))
 app.use('/api/admin', require('./routes/adminRoute'))
 app.use('/api/student', require('./routes/studentRoute'))
-app.use('/api/chat', require('./routes/chatRoute'))
 
 
 module.exports = app;
